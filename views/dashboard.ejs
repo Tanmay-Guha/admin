@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    h1 { color: #333; }
+    .logout-btn { padding: 8px 15px; background: #dc3545; color: white; text-decoration: none; border-radius: 4px; }
+    .logout-btn:hover { background: #c82333; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background-color: #007bff; color: white; }
+    tr:hover { background-color: #f5f5f5; }
+    .rating { color: #ffc107; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Feedback Submissions</h1>
+    <a href="/logout?auth=<%= authToken %>" class="logout-btn">Logout</a>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Package</th>
+        <th>Rating</th>
+        <th>Comments</th>
+        <th>Submitted At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% feedbacks.forEach(feedback => { %>
+        <tr>
+          <td><%= feedback.id %></td>
+          <td><%= feedback.full_name %></td>
+          <td><%= feedback.email %></td>
+          <td><%= feedback.phone || 'N/A' %></td>
+          <td><%= feedback.package %></td>
+          <td class="rating"><%= '★'.repeat(feedback.rating) %></td>
+          <td><%= feedback.comments || 'None' %></td>
+          <td><%= feedback.submitted_at.toLocaleString() %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
